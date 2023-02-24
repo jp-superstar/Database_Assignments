@@ -1,0 +1,25 @@
+COPY "staging_zip" (
+    ZIP,
+    "TYPE",
+    DECOMMISSIONED,
+    PRIMARY_CITY,
+    ACCEPTABLE_CITIES,
+    UNACCEPTABLE_CITIES,
+    STATE,
+    COUNTY,
+    TIMEZONE,
+    AREA_CODES,
+    WORLD_REGION,
+    COUNTRY,
+    LATITUDE,
+    LONGITUDE,
+    IRS_ESTIMATED_POPULATION_2015
+)
+FROM '/Users/jp/Downloads/zip_code_database.csv' WITH (format csv, null " ", DELIMITER ',', HEADER);
+
+INSERT INTO "cse532.zip" (ZIP, STATE, COUNTY, POP)
+SELECT ZIP,
+    STATE,
+    COUNTY,
+    IRS_ESTIMATED_POPULATION_2015
+FROM "staging_zip";
